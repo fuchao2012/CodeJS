@@ -1,0 +1,44 @@
+<html>
+<body>
+	<script type="text/javascript">
+		var empty_object = {};
+		var stooge = {
+			"first-name":"Jerome",
+			"last-name":"Howard"
+		};
+
+		var flight = {
+			airline:"Oceanic",
+			number:815,
+			departure:{
+				IATA:"SYD",
+				time:"2004-09-22 14:55",
+				city:"Sydney"
+			},
+			arrival:{
+				IATA:"LAX",
+				time:"2004-09-23 10:42",
+				city:"Los Angeles"
+			}
+		};
+
+		console.log(stooge["first-name"]);//Jerome
+		console.log(flight.departure.IATA);//SYD
+
+		console.log(stooge["middle-name"]);//undefined
+		console.log(flight.status);//undefined
+		console.log(stooge["FIRST-NAME"]);//undefined
+
+		var middle = stooge["middle-name"] || "(none)";
+		var status = flight.status || "unknown";
+		console.log(middle);
+		console.log(status);
+
+		console.log(flight.equipment);//undefined
+		//console.log(flight.equipment.model);//throw "TypeError"
+		console.log(flight.equipment && flight.equipment.model);//undefined
+
+
+	</script>
+</body>
+</html>
