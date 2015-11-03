@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://apps.bdimg.com/libs/angular.js/1.2.16/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		{{ user }}
+	</div>
+	<script type="text/javascript">
+	angular.module("myApp",[])
+	.controller("myCtrl",function($scope){
+		var user = new Object();
+		user.name = "xingoo";
+		user.age = 36;
+		user.school = "jialidun";
+
+		console.log(user);
+		console.log(angular.toJson(user));
+		console.log(angular.toJson(user,2));
+		console.log(angular.toJson(user,10));
+
+		$scope.user = user;
+	});
+	</script>
+</body>
+</html>

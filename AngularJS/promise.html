@@ -1,0 +1,88 @@
+<html ng-app="myApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="http://apps.bdimg.com/libs/angular.js/1.2.16/angular.min.js"></script>
+</head>
+<body>
+	<div ng-controller="myctrl">
+		{{test}}
+	</div>
+	<script type="text/javascript">
+		 var myAppModule = angular.module("myApp",[]);
+		 myAppModule.controller("myctrl",["$scope","$q",function($scope,$q){
+		 	$scope.test = 1;
+
+		 	var defer1 = $q.defer();
+		 	var promise1 = defer1.promise;
+
+		 	promise1
+		 	.then(function(value){
+		 		console.log("in promise1 ---- success");
+		 		console.log(value);
+		 	},function(value){
+		 		console.log("in promise1 ---- error");
+		 		console.log(value);
+		 	},function(value){
+		 		console.log("in promise1 ---- notify");
+		 		console.log(value);
+		 	})
+		 	.catch(function(e){
+		 		console.log("in promise1 ---- catch");
+		 		console.log(e);
+		 	})
+		 	.finally(function(value){
+		 		console.log('in promise1 ---- finally');
+		 		console.log(value);
+		 	});
+
+		 	// defer1.resolve("hello");
+		 	// defer1.reject("sorry,reject");
+
+
+		 	var defer2 = $q.defer();
+		 	var promise2 = defer2.promise;
+
+		 	promise2
+		 	.then(function(value){
+		 		console.log("in promise2 ---- success");
+		 		console.log(value);
+		 	},function(value){
+		 		console.log("in promise2 ---- error");
+		 		console.log(value);
+		 	},function(value){
+		 		console.log("in promise2 ---- notify");
+		 		console.log(value);
+		 	})
+		 	.catch(function(e){
+		 		console.log("in promise2 ---- catch");
+		 		console.log(e);
+		 	})
+		 	.finally(function(value){
+		 		console.log('in promise2 ---- finally');
+		 		console.log(value);
+		 	});
+
+		 	// defer2.resolve("hello");
+		 	// defer2.reject("sorry,reject");
+		 	var funcA = function(){
+		 		console.log("funcA");
+		 		return "hello,funA";
+		 	}
+		 	var funcB = function(){
+		 		console.log("funcB");
+		 		return "hello,funB";
+		 	}
+		 	$q.all([funcA(),funcB()])
+		 	.then(function(result){
+		 		console.log(result);
+		 	});
+
+		 	$q.when(funcA())
+		 	.then(function(result){
+		 		console.log(result);
+		 	});
+
+		 }]);
+	</script>
+</body>
+</html>
