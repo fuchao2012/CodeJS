@@ -1,0 +1,30 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://apps.bdimg.com/libs/angular.js/1.2.16/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		{{ a_equals }}
+		{{ user_equals }}
+		{{ nan_equals }}
+		{{ reg_equals }}
+	</div>
+	<script type="text/javascript">
+	angular.module("myApp",[])
+	.controller("myCtrl",function($scope){
+		
+		var a = 3;
+		$scope.a_equals = angular.equals(a,3);//a === 3
+
+		var user1 = {"name":"xing","age":30};
+		var user2 = {"name":"xing","age":30};
+		$scope.user_equals = angular.equals(user1,user2);
+
+		$scope.nan_equals = angular.equals(NaN,NaN);//in javascirpt is false
+
+		$scope.reg_equals = angular.equals(/abc/,/abc/);// in javascript is false
+	});
+	</script>
+</body>
+</html>

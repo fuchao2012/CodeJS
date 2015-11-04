@@ -1,0 +1,42 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://apps.bdimg.com/libs/angular.js/1.2.16/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		{{ user1 }}
+		{{ user2 }}
+		{{ user3 }}
+
+		{{ user4 }}
+		{{ user5 }}
+	</div>
+	<script type="text/javascript">
+	angular.module("myApp",[])
+	.controller("myCtrl",function($scope){
+		var user1 = {"name":"xingoo"};
+		var user2 = {"age":30};
+
+		var user3 = angular.extend(user1,user2);
+		// var user3 = angular.extend({},user1,user2);
+
+		$scope.user1 = user1;
+		$scope.user2 = user2;
+		$scope.user3 = user3;
+
+
+		var user4 = new Object();
+		user4.name = "xingoo";
+		user4.age = 30;
+		user4.mother = user1;
+		
+		var user5 = new Object();
+		angular.extend(user5,user4);
+
+		$scope.user4 = user4;
+		$scope.user5 = user5;
+	});
+	</script>
+</body>
+</html>
