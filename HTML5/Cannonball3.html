@@ -179,7 +179,7 @@
 	function finish(ev){
 		if(inmotion){
 			inmotion =false;
-			var outofcannon = distsq(mysling.sx,mysling.sy,mysling.s1x,mysling.s1y)/700;
+			var outofcannon = distsq(mysling.bx,mysling.by,mysling.s1x,mysling.s1y)/700;
 			var angleradians = -Math.atan2(mysling.s1y-mysling.by,mysling.s1x-mysling.bx);
 			horvelocity = outofcannon*Math.cos(angleradians);
 			verticalvel1 = -outofcannon*Math.sin(angleradians);
