@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fly bird</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="./jquery/jquery.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript">
+		var ctx;
+		var cwidth = 400;
+		var cheight = 600;
+		var objects = [];
+		var birdIndex = 0;
+		var ver1 = 10;
+		var ver2;
+		var gravity = 2;
+		var pipe_height = 200;
+		var velocity = 10;
+
+		var birds = ["./images/0.gif","./images/1.gif","./images/2.gif"];
+
+		var back = new Background(0,0,400,600,"./images/bg.png");
+		objects.push(back);
+		var up_pipe = new UpPipe(0,0,100,200,"./images/pipe.png");
+		var down_pipe = new DownPipe(0,400,100,200,"./images/pipe.png");
+		objects.push(up_pipe);
+		objects.push(down_pipe);
+		var ground = new Background(0,550,400,200,"./images/ground.png");
+		objects.push(ground);
+		var bird = new Bird(80,300,40,40,birds);
+		objects.push(bird);
+
+		function UpPipe(x,y,width,height,img_src){
+			this.px = x;
+			this.py = y;
+			this.pwidth = width;
+			this.pheight = height;
+			this.img_src = img_src;
+			this.draw = drawUpPipe;
+		}
+
+		function DownPipe(x,y,width,height,img_src){
+			this.px = x;
+			this.py = y;
+			this.pwidth = width;
+			this.pheight = height;
+			this.img_src = img_src;
+			this.draw = drawDownPipe;
+		}
+
+		function drawUpPipe(){
+			var image = new Image();
+			image.src = this.img_src;
+			ctx.drawImage(image,150,500,150,800,this.px,this.py,this.pwidth,this.pheight);
+		}
+
+		function drawDownPipe(){
+			var image = new Image();
+			image.src = this.img_src;
+			ctx.drawImage(image,0,500,150,500,this.px,this.py,this.pwidth,this.pheight);
+		}
+
+		function Background(x,y,width,height,img_src){
+			this.bgx = x;
+			this.bgy = y;
+			this.bgwidth = width;
+			this.bgheight = height;
+			var image = new Image();
+			image.src = img_src;
+			this.img = image;
+			this.draw = drawbg;
+		}
+
+		function drawbg(){
+			ctx.drawImage(this.img,this.bgx,this.bgy,this.bgwidth,this.bgheight);
+		}
+
+		function Bird(x,y,width,height,img_srcs){
+			this.bx = x;
+			this.by = y;
+			this.bwidth = width;
+			this.bheight = height;
+			this.imgs = img_srcs;
+			this.draw = drawbird;
+		}
+
+		function drawbird(){
+			birdIndex++;
+			var image = new Image();
+			image.src = this.imgs[birdIndex%3];
+			ctx.drawImage(image,this.bx,this.by,this.bwidth,this.bheight);
+		}
+
+		function calculator(){
+			ver2 = ver1+gravity;
+			bird.by += (ver2+ver1)*0.5;
+
+			if(up_pipe.px+up_pipe.	pwidth>0){
+				up_pipe.px -= velocity;
+				down_pipe.px -= velocity;
+			}else{
+				up_pipe.px = 400;
+				down_pipe.px = 400;
+				up_pipe.pheight = 100+Math.random()*200;
+				down_pipe.py = up_pipe.pheight+pipe_height;
+				down_pipe.pheight = 600-down_pipe.py;
+			}
+		}
+
+		function drawall(){
+			ctx.clearRect(0,0,cwidth,cheight);
+			calculator();
+			var i;
+			for(i=0;i<objects.length;i++){
+				objects[i].draw();
+			}
+		}
+
+		function keyup(e){
+		    var e = e||event;
+		   	var currKey = e.keyCode||e.which||e.charCode;
+	       	switch (currKey){
+		    	case 32:
+		    		bird.by -= 80;
+				    break;
+		    }
+		}	
+
+		function init(){
+			ctx = document.getElementById('canvas').getContext('2d');
+			document.onkeyup = keyup;
+			drawall();
+			setInterval(drawall,80);
+		}
+	</script>
+</head>
+<body onLoad="init();">
+<canvas id="canvas" width="400" height="600" style="margin-left:200px;">
+	Your browser is not support canvas! 
+</canvas>
+</body>
+</html>
